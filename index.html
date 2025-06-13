@@ -9,33 +9,45 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Kanit', sans-serif; }
+        body { font-family: 'Kanit', sans-serif; background-color: #f7fafc; }
         .form-label { @apply block text-sm font-medium text-gray-700 mb-1; }
         .form-input { 
-            @apply block w-full px-3 py-2 bg-white rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm; 
-            /* Explicitly define a standard, visible gray border */
-            border: 1px solid #B0B0B0; 
+            @apply block w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent sm:text-sm transition-all; 
         }
         .form-input.invalid { 
-             /* Override border color for invalid fields */
-            border-color: #F87171; /* Tailwind's red-400 */
+            border-color: #ef4444; /* red-500 */
             @apply ring-1 ring-red-500; 
         }
-        .validation-message { @apply text-red-600 text-sm mt-1; }
-        .form-section-title { @apply text-xl font-semibold text-gray-800 border-b pb-2 mb-6; }
-        .cta-button { @apply w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors disabled:bg-gray-400; }
+        .form-section-title { @apply text-2xl font-semibold text-gray-900 pb-3 mb-6 border-b border-gray-200; }
+        .cta-button { 
+            @apply w-full inline-flex items-center justify-center px-8 py-4 border border-transparent rounded-full shadow-lg text-xl font-bold text-white transition-all duration-300 ease-in-out;
+            background-image: linear-gradient(to right, #10B981 0%, #34D399 51%, #10B981 100%);
+            background-size: 200% auto;
+        }
+        .cta-button:hover {
+            background-position: right center;
+            box-shadow: 0 10px 20px rgba(46, 213, 115, 0.3);
+            transform: translateY(-2px);
+        }
+        .form-step {
+            transition: opacity 0.5s ease-in-out;
+        }
+        .progress-bar { @apply flex items-center justify-center mb-8; }
+        .progress-step { @apply flex items-center text-gray-500 transition-colors duration-300; }
+        .progress-step.active { @apply text-blue-600; }
+        .progress-step .circle { @apply w-8 h-8 rounded-full border-2 flex items-center justify-center font-bold; }
+        .progress-step.active .circle { @apply bg-blue-600 text-white border-blue-600; }
+        .progress-line { @apply w-16 sm:w-24 h-0.5 bg-gray-300; }
+        .progress-step.active .line-to { @apply bg-blue-600; }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-100">
 
     <!-- Section 1: Landing Page -->
-    <div class="bg-slate-800">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 text-center text-white">
-            <h1 class="text-4xl md:text-5xl font-bold tracking-tight">ร่วมเป็นร้านค้าพันธมิตร "SME Better Together Privilege"</h1>
-            <p class="mt-4 max-w-4xl mx-auto text-lg md:text-xl text-slate-300">ขยายโอกาสทางธุรกิจของคุณสู่เครือข่ายสมาชิกสมาพันธ์ฯ ทั่วประเทศ!</p>
-            <p class="mt-6 max-w-3xl mx-auto text-base text-slate-400">
-                เปิดรับสมัครผู้ประกอบการ SME ที่ต้องการมอบสิทธิประโยชน์สุดพิเศษ และเป็นส่วนหนึ่งของเครือข่ายร้านค้ารับบัตร SME Thailand MICE Visa Prepaid Card
-            </p>
+    <div class="bg-gradient-to-br from-blue-900 to-slate-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 text-center text-white">
+            <h1 class="text-4xl md:text-6xl font-bold tracking-tight">ร่วมเป็นร้านค้าพันธมิตร "SME Better Together Privilege"</h1>
+            <p class="mt-4 max-w-4xl mx-auto text-lg md:text-xl text-blue-100">ขยายโอกาสทางธุรกิจของคุณสู่เครือข่ายสมาชิกสมาพันธ์ฯ ทั่วประเทศ!</p>
         </div>
     </div>
     
@@ -43,150 +55,108 @@
         <div class="text-center">
             <h2 class="text-3xl font-bold text-gray-900">ทำไมต้องเข้าร่วมเป็นร้านค้าพันธมิตรกับเรา?</h2>
         </div>
-        <div class="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            <div class="flex">
-                <div class="flex-shrink-0">
-                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-600 text-white">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                    </div>
-                </div>
-                <div class="ml-4">
-                    <h3 class="text-lg leading-6 font-medium text-gray-900">เข้าถึงลูกค้ากลุ่มใหม่</h3>
-                    <p class="mt-2 text-base text-gray-500">เพิ่มการมองเห็นและประชาสัมพันธ์ธุรกิจของคุณไปยังสมาชิกสมาพันธ์ฯ ที่มีศักยภาพกว่า 30,000 รายทั่วประเทศ</p>
-                </div>
+        <div class="mt-12 grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+             <div class="flex items-start">
+                <div class="flex-shrink-0"><div class="flex items-center justify-center h-12 w-12 rounded-lg bg-blue-600 text-white"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg></div></div>
+                <div class="ml-4"><h3 class="text-lg leading-6 font-medium text-gray-900">เข้าถึงลูกค้ากลุ่มใหม่</h3><p class="mt-2 text-base text-gray-600">ประชาสัมพันธ์ธุรกิจของคุณไปยังสมาชิกสมาพันธ์ฯ ที่มีศักยภาพกว่า 30,000 รายทั่วประเทศ</p></div>
             </div>
-            <div class="flex">
-                <div class="flex-shrink-0">
-                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-600 text-white">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
-                    </div>
-                </div>
-                <div class="ml-4">
-                    <h3 class="text-lg leading-6 font-medium text-gray-900">กระตุ้นยอดขาย</h3>
-                    <p class="mt-2 text-base text-gray-500">ดึงดูดผู้ถือบัตรให้มาใช้บริการด้วยสิทธิประโยชน์และโปรโมชั่นที่น่าสนใจ</p>
-                </div>
+            <div class="flex items-start">
+                <div class="flex-shrink-0"><div class="flex items-center justify-center h-12 w-12 rounded-lg bg-blue-600 text-white"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg></div></div>
+                <div class="ml-4"><h3 class="text-lg leading-6 font-medium text-gray-900">กระตุ้นยอดขาย</h3><p class="mt-2 text-base text-gray-600">ดึงดูดผู้ถือบัตรให้มาใช้บริการด้วยสิทธิประโยชน์และโปรโมชั่นที่น่าสนใจ</p></div>
             </div>
-            <div class="flex">
-                <div class="flex-shrink-0">
-                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-600 text-white">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
-                    </div>
-                </div>
-                <div class="ml-4">
-                    <h3 class="text-lg leading-6 font-medium text-gray-900">เสริมสร้างความแข็งแกร่งให้แบรนด์</h3>
-                    <p class="mt-2 text-base text-gray-500">การเป็นส่วนหนึ่งของเครือข่ายพันธมิตรภายใต้การสนับสนุนของ สมาพันธ์ฯ, VISA, และ TCEB ช่วยยกระดับภาพลักษณ์</p>
-                </div>
-            </div>
-            <div class="flex">
-                <div class="flex-shrink-0">
-                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-600 text-white">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
-                    </div>
-                </div>
-                <div class="ml-4">
-                    <h3 class="text-lg leading-6 font-medium text-gray-900">ต้นทุนการรับชำระเงินที่ต่ำกว่า</h3>
-                    <p class="mt-2 text-base text-gray-500">ได้รับสิทธิ์อัตราค่าธรรมเนียมพิเศษ (Special MDR) สำหรับการรับชำระผ่านบัตร</p>
-                </div>
-            </div>
-            <div class="flex">
-                <div class="flex-shrink-0">
-                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-600 text-white">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                    </div>
-                </div>
-                <div class="ml-4">
-                    <h3 class="text-lg leading-6 font-medium text-gray-900">เป็นส่วนหนึ่งของ Ecosystem "เพื่อนช่วยเพื่อน"</h3>
-                    <p class="mt-2 text-base text-gray-500">ร่วมสร้างวัฒนธรรมการสนับสนุนธุรกิจ SME ด้วยกันให้เติบโตอย่างยั่งยืน</p>
-                </div>
+            <div class="flex items-start">
+                <div class="flex-shrink-0"><div class="flex items-center justify-center h-12 w-12 rounded-lg bg-blue-600 text-white"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg></div></div>
+                <div class="ml-4"><h3 class="text-lg leading-6 font-medium text-gray-900">เสริมสร้างความแข็งแกร่งให้แบรนด์</h3><p class="mt-2 text-base text-gray-600">การเป็นส่วนหนึ่งของเครือข่ายพันธมิตรภายใต้การสนับสนุนของ สมาพันธ์ฯ, VISA, และ TCEB</p></div>
             </div>
         </div>
 
-        <div class="mt-12 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded-md" role="alert">
+        <div class="mt-16 bg-blue-50 border-l-4 border-blue-500 text-blue-800 p-6 rounded-r-lg" role="alert">
             <p class="font-bold">เงื่อนไขสำคัญ</p>
-            <p>ผู้ประกอบการที่ต้องการเข้าร่วมเป็นร้านค้าพันธมิตร จะต้องสมัครเป็น สมาชิกสมทบของสมาพันธ์เอสเอ็มอีไทย (ค่าธรรมเนียมรายปี 500 บาท) เพื่อเป็นส่วนหนึ่งของเครือข่ายและรับการสนับสนุนอย่างเต็มรูปแบบ</p>
+            <p>ผู้ประกอบการที่ต้องการเข้าร่วม จะต้องสมัครเป็น <strong class="font-semibold">สมาชิกสมทบของสมาพันธ์เอสเอ็มอีไทย (ค่าธรรมเนียมรายปี 500 บาท)</strong> เพื่อเป็นส่วนหนึ่งของเครือข่ายและรับการสนับสนุนอย่างเต็มรูปแบบ</p>
         </div>
 
-        <div class="mt-12 max-w-md mx-auto">
-            <button id="apply-now-btn" class="cta-button">
-                สมัครเป็นร้านค้าพันธมิตรเลย!
-            </button>
+        <div class="mt-20 text-center">
+            <p class="text-lg text-gray-600 mb-4">พร้อมที่จะเป็นส่วนหนึ่งของความสำเร็จแล้วหรือยัง?</p>
+            <div class="max-w-lg mx-auto">
+                <button id="apply-now-btn" class="cta-button">
+                    <span>สมัครเป็นร้านค้าพันธมิตรเลย!</span>
+                    <svg class="w-6 h-6 ml-3 transform -rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7"></path></svg>
+                </button>
+            </div>
         </div>
     </div>
 
     <!-- Section 2: Application Form -->
-    <section id="application-form" class="hidden bg-slate-100 py-16">
+    <section id="application-form" class="hidden bg-gray-100 py-16">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+            <div id="form-wrapper" class="max-w-4xl mx-auto bg-white p-8 sm:p-12 rounded-xl shadow-2xl">
 
                 <div id="form-container">
-                    <div class="text-center mb-4">
+                    <div class="text-center mb-12">
                         <h2 class="text-3xl font-bold text-gray-900">ฟอร์มรับสมัครร้านค้าพันธมิตร</h2>
-                        <p class="text-lg text-gray-500 mt-2">ขั้นตอนที่ <span id="step-indicator">1</span> จาก 3</p>
-                    </div>
-                    
-                    <div id="validation-error-msg" class="hidden text-center bg-red-100 text-red-700 p-3 rounded-md mb-6 text-sm">
-                        กรุณากรอกข้อมูลในช่องที่มีเครื่องหมาย * ให้ครบถ้วน
                     </div>
 
+                    <!-- Progress Bar -->
+                    <div class="progress-bar">
+                        <div id="progress-step-1" class="progress-step active"><div class="circle">1</div><div id="progress-line-1" class="progress-line line-to"></div></div>
+                        <div id="progress-step-2" class="progress-step"><div class="circle">2</div><div id="progress-line-2" class="progress-line"></div></div>
+                        <div id="progress-step-3" class="progress-step"><div class="circle">3</div></div>
+                    </div>
+                    
                     <form id="merchant-form">
                         <!-- Step 1: Business Information -->
-                        <div id="form-step-1" class="space-y-6">
+                        <div id="form-step-1" class="form-step space-y-8">
                             <h3 class="form-section-title">ขั้นตอนที่ 1: ข้อมูลธุรกิจ</h3>
-                            <div><label for="trade-name" class="form-label">ชื่อสถานประกอบการ: <span class="text-red-500">*</span></label><input type="text" id="trade-name" class="form-input" required></div>
-                            <div><label for="registered-name" class="form-label">ชื่อจดทะเบียน: <span class="text-red-500">*</span></label><input type="text" id="registered-name" class="form-input" required></div>
-                            <div><label for="business-type" class="form-label">ประเภทธุรกิจ: <span class="text-red-500">*</span></label><select id="business-type" class="form-input" required><option>บุคคลธรรมดา</option><option>ห้างหุ้นส่วนจำกัด</option><option>บริษัทจำกัด</option><option>วิสาหกิจชุมชน</option><option>อื่นๆ</option></select></div>
-                            <div><label for="owner-name" class="form-label">ชื่อ-นามสกุล เจ้าของ/กรรมการ: <span class="text-red-500">*</span></label><input type="text" id="owner-name" class="form-input" required></div>
-                            <div><label for="owner-id" class="form-label">เลขบัตรประชาชน: <span class="text-red-500">*</span></label><input type="text" id="owner-id" class="form-input" required></div>
-                            <div><label for="bank-name" class="form-label">ชื่อธนาคาร: <span class="text-red-500">*</span></label><input type="text" id="bank-name" class="form-input" required></div>
-                            <div><label for="account-name" class="form-label">ชื่อบัญชี: <span class="text-red-500">*</span></label><input type="text" id="account-name" class="form-input" required></div>
-                            <div><label for="account-number" class="form-label">เลขที่บัญชี: <span class="text-red-500">*</span></label><input type="text" id="account-number" class="form-input" required></div>
-                            <div>
-                               <label class="form-label">เอกสารประกอบ (นิติบุคคล):</label>
-                               <input type="file" id="doc-company" class="form-input text-sm">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div><label for="trade-name" class="form-label">ชื่อสถานประกอบการ <span class="text-red-500">*</span></label><input type="text" id="trade-name" class="form-input" required></div>
+                                <div><label for="registered-name" class="form-label">ชื่อจดทะเบียน <span class="text-red-500">*</span></label><input type="text" id="registered-name" class="form-input" required></div>
+                                <div class="md:col-span-2"><label for="business-type" class="form-label">ประเภทธุรกิจ <span class="text-red-500">*</span></label><select id="business-type" class="form-input" required><option>บุคคลธรรมดา</option><option>ห้างหุ้นส่วนจำกัด</option><option>บริษัทจำกัด</option><option>วิสาหกิจชุมชน</option><option>อื่นๆ</option></select></div>
+                                <div><label for="owner-name" class="form-label">ชื่อ-นามสกุล เจ้าของ/กรรมการ <span class="text-red-500">*</span></label><input type="text" id="owner-name" class="form-input" required></div>
+                                <div><label for="owner-id" class="form-label">เลขบัตรประชาชน <span class="text-red-500">*</span></label><input type="text" id="owner-id" class="form-input" required></div>
+                                <div><label for="bank-name" class="form-label">ชื่อธนาคาร <span class="text-red-500">*</span></label><input type="text" id="bank-name" class="form-input" required></div>
+                                <div><label for="account-name" class="form-label">ชื่อบัญชี <span class="text-red-500">*</span></label><input type="text" id="account-name" class="form-input" required></div>
+                                <div><label for="account-number" class="form-label">เลขที่บัญชี <span class="text-red-500">*</span></label><input type="text" id="account-number" class="form-input" required></div>
                             </div>
-                            <div>
-                               <label class="form-label">เอกสารประกอบ (บุคคลธรรมดา):</label>
-                               <input type="file" id="doc-individual" class="form-input text-sm">
-                            </div>
-                            <div class="flex justify-end"><button type="button" id="next-btn-1" class="py-2 px-6 border rounded-md text-white bg-blue-600 hover:bg-blue-700">ถัดไป &gt;</button></div>
+                            <div class="flex justify-end mt-10"><button type="button" id="next-btn-1" class="py-2 px-8 border rounded-lg text-white bg-blue-600 hover:bg-blue-700 font-semibold">ถัดไป</button></div>
                         </div>
 
                         <!-- Step 2: Privilege Information -->
-                        <div id="form-step-2" class="hidden space-y-6">
+                        <div id="form-step-2" class="form-step hidden space-y-8">
                             <h3 class="form-section-title">ขั้นตอนที่ 2: สิทธิประโยชน์และข้อมูลประชาสัมพันธ์</h3>
-                            <div><label for="privilege-type" class="form-label">ประเภทสิทธิประโยชน์: <span class="text-red-500">*</span></label><select id="privilege-type" class="form-input" required><option>ส่วนลดเป็นเปอร์เซ็นต์ (%)</option><option>ส่วนลดเป็นจำนวนเงิน (บาท)</option><option>อื่นๆ</option></select></div>
-                            <div><label for="privilege-details" class="form-label">รายละเอียดสิทธิประโยชน์: <span class="text-red-500">*</span></label><textarea id="privilege-details" rows="3" class="form-input" required></textarea></div>
-                            <div><label for="business-description" class="form-label">คำอธิบายธุรกิจ (ไม่เกิน 280 ตัวอักษร):</label><textarea id="business-description" rows="2" class="form-input" maxlength="280"></textarea></div>
-                            <div><label for="logo-upload" class="form-label">อัปโหลดโลโก้:</label><input type="file" id="logo-upload" class="form-input text-sm" accept="image/*"></div>
-                            <div><label for="images-upload" class="form-label">อัปโหลดภาพร้านค้า/สินค้า (สูงสุด 5 ภาพ):</label><input type="file" id="images-upload" multiple class="form-input text-sm" accept="image/*"></div>
-                            <div><label for="facebook-url" class="form-label">Facebook Page URL:</label><input type="url" id="facebook-url" class="form-input"></div>
-                            <div class="flex justify-between">
-                                <button type="button" id="back-btn-2" class="py-2 px-6 border rounded-md bg-white hover:bg-gray-50">&lt; ย้อนกลับ</button>
-                                <button type="button" id="next-btn-2" class="py-2 px-6 border rounded-md text-white bg-blue-600 hover:bg-blue-700">ถัดไป &gt;</button>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div><label for="privilege-type" class="form-label">ประเภทสิทธิประโยชน์ <span class="text-red-500">*</span></label><select id="privilege-type" class="form-input" required><option>ส่วนลดเป็นเปอร์เซ็นต์ (%)</option><option>ส่วนลดเป็นจำนวนเงิน (บาท)</option><option>ของขวัญ Welcome Gift</option><option>ของแถม</option><option>บริการเพิ่มเติมฟรี</option><option>อื่นๆ</option></select></div>
+                                <div class="md:col-span-2"><label for="privilege-details" class="form-label">รายละเอียดสิทธิประโยชน์ <span class="text-red-500">*</span></label><textarea id="privilege-details" rows="3" class="form-input" required placeholder="เช่น 'ส่วนลด 10% สำหรับค่าอาหารเท่านั้น'"></textarea></div>
+                                <div class="md:col-span-2"><label for="business-description" class="form-label">คำอธิบายธุรกิจ (ไม่เกิน 280 ตัวอักษร)</label><textarea id="business-description" rows="2" class="form-input" maxlength="280" placeholder="แนะนำธุรกิจของคุณให้ลูกค้ารู้จัก..."></textarea></div>
+                                <div><label for="facebook-url" class="form-label">Facebook Page URL</label><input type="url" id="facebook-url" class="form-input" placeholder="https://facebook.com/yourpage"></div>
+                            </div>
+                            <div class="flex justify-between mt-10">
+                                <button type="button" id="back-btn-2" class="py-2 px-8 border border-gray-300 rounded-lg bg-white hover:bg-gray-100 text-gray-700 font-semibold">ย้อนกลับ</button>
+                                <button type="button" id="next-btn-2" class="py-2 px-8 border rounded-lg text-white bg-blue-600 hover:bg-blue-700 font-semibold">ถัดไป</button>
                             </div>
                         </div>
 
                         <!-- Step 3: Confirmation -->
-                        <div id="form-step-3" class="hidden space-y-6">
-                            <h3 class="form-section-title">ขั้นตอนที่ 3: ยืนยันข้อมูล</h3>
-                            <div class="space-y-5">
-                                <div class="relative flex items-start"><div class="flex items-center h-5"><input id="confirm-membership" name="confirmation" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded"></div><div class="ml-3 text-sm"><label for="confirm-membership" class="font-medium text-gray-700">ยินดีสมัครสมาชิกสมทบ (500 บาท/ปี) <span class="text-red-500">*</span></label></div></div>
-                                <div class="relative flex items-start"><div class="flex items-center h-5"><input id="confirm-consent" name="confirmation" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded"></div><div class="ml-3 text-sm"><label for="confirm-consent" class="font-medium text-gray-700">ยินยอมให้ตรวจสอบข้อมูล <span class="text-red-500">*</span></label></div></div>
-                                <div class="relative flex items-start"><div class="flex items-center h-5"><input id="confirm-truth" name="confirmation" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded"></div><div class="ml-3 text-sm"><label for="confirm-truth" class="font-medium text-gray-700">ยืนยันว่าข้อมูลเป็นความจริง <span class="text-red-500">*</span></label></div></div>
+                        <div id="form-step-3" class="form-step hidden space-y-8">
+                            <h3 class="form-section-title">ขั้นตอนที่ 3: ยืนยันและส่งข้อมูล</h3>
+                            <div class="space-y-6 bg-gray-50 p-6 rounded-lg">
+                                <div class="relative flex items-start"><div class="flex items-center h-5"><input id="confirm-membership" name="confirmation" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"></div><div class="ml-3 text-sm"><label for="confirm-membership" class="font-medium text-gray-700">ข้าพเจ้าเข้าใจและยินดีสมัครเป็นสมาชิกสมทบ (500 บาท/ปี) <span class="text-red-500">*</span></label></div></div>
+                                <div class="relative flex items-start"><div class="flex items-center h-5"><input id="confirm-consent" name="confirmation" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"></div><div class="ml-3 text-sm"><label for="confirm-consent" class="font-medium text-gray-700">ข้าพเจ้ายินยอมให้ตรวจสอบข้อมูลและเอกสารที่ให้ไว้ <span class="text-red-500">*</span></label></div></div>
+                                <div class="relative flex items-start"><div class="flex items-center h-5"><input id="confirm-truth" name="confirmation" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"></div><div class="ml-3 text-sm"><label for="confirm-truth" class="font-medium text-gray-700">ข้าพเจ้ายินยันว่าข้อมูลทั้งหมดเป็นความจริง <span class="text-red-500">*</span></label></div></div>
                             </div>
-                            <div class="flex justify-between items-center pt-6 border-t">
-                                <button type="button" id="back-btn-3" class="py-2 px-6 border rounded-md bg-white hover:bg-gray-50">&lt; ย้อนกลับ</button>
-                                <button type="submit" id="submit-btn" class="cta-button text-base py-2 px-6 w-auto" disabled>ยืนยันและส่งข้อมูล</button>
+                            <div class="flex justify-between items-center pt-8 border-t">
+                                <button type="button" id="back-btn-3" class="py-2 px-8 border border-gray-300 rounded-lg bg-white hover:bg-gray-100 text-gray-700 font-semibold">ย้อนกลับ</button>
+                                <button type="submit" id="submit-btn" class="py-3 px-8 border border-transparent rounded-lg shadow-sm text-lg font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors disabled:bg-gray-400" disabled>ยืนยันและส่งข้อมูล</button>
                             </div>
                         </div>
                     </form>
                 </div>
 
                 <div id="thank-you-message" class="hidden text-center py-12">
-                     <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100"><svg class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div>
-                     <h3 class="mt-4 text-2xl font-bold text-gray-900">ขอบคุณสำหรับการสมัคร!</h3>
-                     <p class="mt-2 text-gray-600">ได้รับข้อมูลของท่านเรียบร้อยแล้ว ทีมงานจะติดต่อกลับใน 3-5 วันทำการ</p>
+                     <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100"><svg class="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div>
+                     <h3 class="mt-6 text-3xl font-bold text-gray-900">ขอบคุณสำหรับการสมัคร!</h3>
+                     <p class="mt-4 text-lg text-gray-600">ทางสมาพันธ์ฯ ได้รับข้อมูลของท่านเรียบร้อยแล้ว<br>ทีมงานจะติดต่อกลับเพื่อดำเนินการในขั้นตอนต่อไปภายใน 3-5 วันทำการ</p>
                 </div>
+
             </div>
         </div>
     </section>
@@ -196,41 +166,53 @@
             const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwmF9Co0AHHwgRoWGypZoDdHEG2qurDsLg1bl4t1jt8bt0O7CDV_YOxtpWuvL-e4vhN/exec";
 
             const applyNowBtn = document.getElementById('apply-now-btn');
-            const applicationForm = document.getElementById('application-form');
+            const applicationFormSection = document.getElementById('application-form');
+            const formWrapper = document.getElementById('form-wrapper');
             const formContainer = document.getElementById('form-container');
             const thankYouMessage = document.getElementById('thank-you-message');
             const mainForm = document.getElementById('merchant-form');
-            const validationErrorMsg = document.getElementById('validation-error-msg');
-
-            const steps = [
-                document.getElementById('form-step-1'),
-                document.getElementById('form-step-2'),
-                document.getElementById('form-step-3')
-            ];
-            const stepIndicator = document.getElementById('step-indicator');
+            
+            const steps = [document.getElementById('form-step-1'), document.getElementById('form-step-2'), document.getElementById('form-step-3')];
+            const progressSteps = [document.getElementById('progress-step-1'), document.getElementById('progress-step-2'), document.getElementById('progress-step-3')];
+            const progressLines = [document.getElementById('progress-line-1'), document.getElementById('progress-line-2')];
+            
             const submitBtn = document.getElementById('submit-btn');
-
             const nextBtn1 = document.getElementById('next-btn-1');
             const nextBtn2 = document.getElementById('next-btn-2');
             const backBtn2 = document.getElementById('back-btn-2');
             const backBtn3 = document.getElementById('back-btn-3');
-            
             const confirmationCheckboxes = document.querySelectorAll('input[name="confirmation"]');
 
-            function showStep(stepIndex) {
-                validationErrorMsg.classList.add('hidden');
-                steps.forEach((step, index) => {
-                    step.classList.toggle('hidden', index !== stepIndex);
+            let currentStepIndex = 0;
+
+            function updateProgressBar(stepIndex) {
+                progressSteps.forEach((step, index) => {
+                    if (index <= stepIndex) step.classList.add('active');
+                    else step.classList.remove('active');
                 });
-                stepIndicator.textContent = stepIndex + 1;
+                progressLines.forEach((line, index) => {
+                    if (index < stepIndex) line.classList.add('bg-blue-600');
+                    else line.classList.remove('bg-blue-600');
+                });
+            }
+
+            function showStep(stepIndex) {
+                steps.forEach((step, index) => {
+                    if (index === stepIndex) {
+                        step.classList.remove('hidden');
+                        setTimeout(() => step.style.opacity = 1, 50);
+                    } else {
+                        step.style.opacity = 0;
+                        setTimeout(() => step.classList.add('hidden'), 500);
+                    }
+                });
+                currentStepIndex = stepIndex;
+                updateProgressBar(currentStepIndex);
             }
             
             function validateStep(stepIndex) {
                 let isValid = true;
-                validationErrorMsg.classList.add('hidden');
-                const currentStepDiv = steps[stepIndex];
-                const requiredInputs = currentStepDiv.querySelectorAll('[required]');
-
+                const requiredInputs = steps[stepIndex].querySelectorAll('[required]');
                 requiredInputs.forEach(input => {
                     input.classList.remove('invalid');
                     if (!input.value.trim()) {
@@ -238,21 +220,12 @@
                         input.classList.add('invalid');
                     }
                 });
-                
-                if (!isValid) {
-                    validationErrorMsg.classList.remove('hidden');
-                }
                 return isValid;
             }
             
-            function checkConfirmations() {
-                const allChecked = Array.from(confirmationCheckboxes).every(cb => cb.checked);
-                submitBtn.disabled = !allChecked;
-            }
-
             applyNowBtn.addEventListener('click', () => {
-                applicationForm.classList.remove('hidden');
-                applicationForm.scrollIntoView({ behavior: 'smooth' });
+                applicationFormSection.classList.remove('hidden');
+                applicationFormSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
 
             nextBtn1.addEventListener('click', () => { if (validateStep(0)) showStep(1); });
@@ -260,24 +233,19 @@
             backBtn2.addEventListener('click', () => showStep(0));
             backBtn3.addEventListener('click', () => showStep(1));
 
-            confirmationCheckboxes.forEach(cb => cb.addEventListener('change', checkConfirmations));
-            
-            document.querySelectorAll('.form-input[required]').forEach(input => {
-                input.addEventListener('input', () => {
-                    if(input.value.trim() !== "") {
-                        input.classList.remove('invalid');
-                    }
+            confirmationCheckboxes.forEach(cb => {
+                cb.addEventListener('change', () => {
+                    const allChecked = Array.from(confirmationCheckboxes).every(cb => cb.checked);
+                    submitBtn.disabled = !allChecked;
                 });
             });
 
-            const readFileAsBase64 = (file) => {
-                return new Promise((resolve, reject) => {
-                    const reader = new FileReader();
-                    reader.onload = () => resolve(reader.result);
-                    reader.onerror = (error) => reject(error);
-                    reader.readAsDataURL(file);
-                });
-            };
+            const readFileAsBase64 = (file) => new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = (error) => reject(error);
+                reader.readAsDataURL(file);
+            });
 
             mainForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
@@ -285,22 +253,6 @@
                 submitBtn.textContent = 'กำลังส่งข้อมูล...';
 
                 try {
-                    const legalDocsFile = document.getElementById('doc-company').files[0];
-                    const individualDocsFile = document.getElementById('doc-individual').files[0];
-                    const logoFile = document.getElementById('logo-upload').files[0];
-                    const productImagesFiles = document.getElementById('images-upload').files;
-
-                    let legalDocsPayload = legalDocsFile ? { name: legalDocsFile.name, data: await readFileAsBase64(legalDocsFile) } : null;
-                    let individualDocsPayload = individualDocsFile ? { name: individualDocsFile.name, data: await readFileAsBase64(individualDocsFile) } : null;
-                    let logoPayload = logoFile ? { name: logoFile.name, data: await readFileAsBase64(logoFile) } : null;
-                    
-                    let productImagesPayload = [];
-                    if (productImagesFiles.length > 0) {
-                         for (const file of productImagesFiles) {
-                            productImagesPayload.push({ name: file.name, data: await readFileAsBase64(file) });
-                        }
-                    }
-
                     const formData = {
                         tradeName: document.getElementById('trade-name').value,
                         registeredName: document.getElementById('registered-name').value,
@@ -314,10 +266,6 @@
                         privilegeDetails: document.getElementById('privilege-details').value,
                         businessDescription: document.getElementById('business-description').value,
                         facebookUrl: document.getElementById('facebook-url').value,
-                        legalDocs: legalDocsPayload,
-                        individualDocs: individualDocsPayload,
-                        logo: logoPayload,
-                        productImages: productImagesPayload,
                         confirmMembership: document.getElementById('confirm-membership').checked,
                         confirmConsent: document.getElementById('confirm-consent').checked,
                         confirmTruth: document.getElementById('confirm-truth').checked,
@@ -330,15 +278,17 @@
                     });
 
                     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-
                     const result = await response.json();
+                    if (result.result !== 'success') throw new Error(result.error || 'Unknown error');
 
-                    if (result.result === 'success') {
+                    formContainer.style.opacity = 0;
+                    setTimeout(() => {
                         formContainer.classList.add('hidden');
                         thankYouMessage.classList.remove('hidden');
-                    } else {
-                        throw new Error(result.error || 'An unknown error occurred.');
-                    }
+                        thankYouMessage.style.opacity = 0;
+                        setTimeout(() => thankYouMessage.style.opacity = 1, 50);
+                    }, 500);
+
                 } catch (error) {
                     alert('เกิดข้อผิดพลาดในการส่งข้อมูล: ' + error.message);
                     submitBtn.disabled = false;
