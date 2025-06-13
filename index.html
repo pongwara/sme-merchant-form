@@ -9,21 +9,21 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Kanit', sans-serif; background-color: #f7fafc; }
-        .form-label { @apply block text-sm font-medium text-gray-700 mb-1; }
+        body { font-family: 'Kanit', sans-serif; background-color: #f8fafc; }
+        .form-label { @apply block text-sm font-medium text-gray-600 mb-2; }
         .form-input {
-            @apply block w-full px-4 py-3 bg-white rounded-lg shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm transition-all;
-            border: 1px solid #d1d5db; /* Explicit gray-300 border, this is the definitive fix */
+            @apply block w-full px-4 py-3 bg-white rounded-md placeholder-gray-400 focus:outline-none sm:text-sm transition-all duration-300;
+            border: 1px solid #e5e7eb; /* Gray-200 */
         }
         .form-input:focus {
              border-color: #3b82f6; /* blue-500 */
-             @apply ring-2 ring-offset-2 ring-blue-500;
+             @apply ring-4 ring-blue-500/10;
+             background-color: #fefefe;
         }
         .form-input.invalid { 
             border-color: #ef4444; /* red-500 */
-            @apply ring-1 ring-red-500; 
         }
-        .form-section-title { @apply text-2xl font-semibold text-gray-900 pb-3 mb-6 border-b border-gray-200; }
+        .form-section-title { @apply text-2xl font-semibold text-gray-900; }
         .cta-button { 
             @apply w-full inline-flex items-center justify-center px-8 py-4 border border-transparent rounded-xl shadow-lg text-xl font-bold text-white transition-all duration-300 ease-in-out;
             background-image: linear-gradient(to right, #10B981 0%, #34D399 51%, #10B981 100%);
@@ -35,17 +35,22 @@
             transform: translateY(-2px);
         }
         .form-step {
-            transition: opacity 0.5s ease-in-out;
+            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
         }
-        .progress-bar { @apply flex items-center justify-center mb-12; }
-        .progress-step { @apply flex items-center text-gray-500 transition-colors duration-500; }
-        .progress-step.active { @apply text-blue-600; }
-        .progress-step .circle { @apply w-8 h-8 rounded-full border-2 border-gray-300 text-gray-500 flex items-center justify-center font-bold transition-all duration-500; }
-        .progress-step.active .circle { @apply bg-blue-600 text-white border-blue-600; }
-        .progress-line { @apply w-16 sm:w-24 h-0.5 bg-gray-300 transition-all duration-500; }
+        .form-step.hidden-step {
+            opacity: 0;
+            transform: translateX(-20px);
+            position: absolute;
+            pointer-events: none;
+        }
+        .form-step.visible-step {
+            opacity: 1;
+            transform: translateX(0);
+            position: relative;
+        }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-50">
 
     <!-- Section 1: Landing Page -->
     <div class="bg-gradient-to-br from-blue-900 to-slate-800">
@@ -93,63 +98,65 @@
     <!-- Section 2: Application Form -->
     <section id="application-form" class="hidden bg-gray-100 py-16">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div id="form-wrapper" class="max-w-4xl mx-auto bg-white p-8 sm:p-12 rounded-xl shadow-2xl">
+            <div id="form-wrapper" class="max-w-2xl mx-auto bg-white p-8 sm:p-12 rounded-2xl shadow-2xl">
 
-                <div id="form-container">
-                    <div class="text-center mb-12">
+                <div id="form-container" class="relative overflow-hidden">
+                    <div class="text-center mb-8">
                         <h2 class="text-3xl font-bold text-gray-900">ฟอร์มรับสมัครร้านค้าพันธมิตร</h2>
                     </div>
 
-                    <!-- Progress Bar -->
-                    <div class="progress-bar">
-                        <div id="progress-step-1" class="progress-step"><div class="circle">1</div><div class="progress-line"></div></div>
-                        <div id="progress-step-2" class="progress-step"><div class="circle">2</div><div class="progress-line"></div></div>
-                        <div id="progress-step-3" class="progress-step"><div class="circle">3</div></div>
-                    </div>
-                    
                     <form id="merchant-form">
                         <!-- Step 1: Business Information -->
-                        <div id="form-step-1" class="form-step space-y-8">
-                            <h3 class="form-section-title">ขั้นตอนที่ 1: ข้อมูลธุรกิจ</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div id="form-step-1" class="form-step visible-step">
+                            <div class="mb-8 pb-4 border-b border-gray-200">
+                                <h3 class="form-section-title">ข้อมูลธุรกิจ</h3>
+                                <p class="text-sm text-gray-500">ขั้นตอนที่ 1 จาก 3</p>
+                            </div>
+                            <div class="space-y-6">
                                 <div><label for="trade-name" class="form-label">ชื่อสถานประกอบการ <span class="text-red-500">*</span></label><input type="text" id="trade-name" class="form-input" required></div>
                                 <div><label for="registered-name" class="form-label">ชื่อจดทะเบียน <span class="text-red-500">*</span></label><input type="text" id="registered-name" class="form-input" required></div>
-                                <div class="md:col-span-2"><label for="business-type" class="form-label">ประเภทธุรกิจ <span class="text-red-500">*</span></label><select id="business-type" class="form-input" required><option>บุคคลธรรมดา</option><option>ห้างหุ้นส่วนจำกัด</option><option>บริษัทจำกัด</option><option>วิสาหกิจชุมชน</option><option>อื่นๆ</option></select></div>
+                                <div><label for="business-type" class="form-label">ประเภทธุรกิจ <span class="text-red-500">*</span></label><select id="business-type" class="form-input" required><option>บุคคลธรรมดา</option><option>ห้างหุ้นส่วนจำกัด</option><option>บริษัทจำกัด</option><option>วิสาหกิจชุมชน</option><option>อื่นๆ</option></select></div>
                                 <div><label for="owner-name" class="form-label">ชื่อ-นามสกุล เจ้าของ/กรรมการ <span class="text-red-500">*</span></label><input type="text" id="owner-name" class="form-input" required></div>
                                 <div><label for="owner-id" class="form-label">เลขบัตรประชาชน <span class="text-red-500">*</span></label><input type="text" id="owner-id" class="form-input" required></div>
                                 <div><label for="bank-name" class="form-label">ชื่อธนาคาร <span class="text-red-500">*</span></label><input type="text" id="bank-name" class="form-input" required></div>
                                 <div><label for="account-name" class="form-label">ชื่อบัญชี <span class="text-red-500">*</span></label><input type="text" id="account-name" class="form-input" required></div>
                                 <div><label for="account-number" class="form-label">เลขที่บัญชี <span class="text-red-500">*</span></label><input type="text" id="account-number" class="form-input" required></div>
                             </div>
-                            <div class="flex justify-end mt-10"><button type="button" id="next-btn-1" class="py-2 px-8 border rounded-lg text-white bg-blue-600 hover:bg-blue-700 font-semibold">ถัดไป</button></div>
+                            <div class="flex justify-end mt-10"><button type="button" id="next-btn-1" class="py-3 px-8 rounded-lg text-white bg-blue-600 hover:bg-blue-700 font-semibold shadow-md hover:shadow-lg transition-all">ถัดไป</button></div>
                         </div>
 
                         <!-- Step 2: Privilege Information -->
-                        <div id="form-step-2" class="form-step hidden space-y-8">
-                            <h3 class="form-section-title">ขั้นตอนที่ 2: สิทธิประโยชน์และข้อมูลประชาสัมพันธ์</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div id="form-step-2" class="form-step hidden-step">
+                            <div class="mb-8 pb-4 border-b border-gray-200">
+                                <h3 class="form-section-title">สิทธิประโยชน์และข้อมูลประชาสัมพันธ์</h3>
+                                <p class="text-sm text-gray-500">ขั้นตอนที่ 2 จาก 3</p>
+                            </div>
+                            <div class="space-y-6">
                                 <div><label for="privilege-type" class="form-label">ประเภทสิทธิประโยชน์ <span class="text-red-500">*</span></label><select id="privilege-type" class="form-input" required><option>ส่วนลดเป็นเปอร์เซ็นต์ (%)</option><option>ส่วนลดเป็นจำนวนเงิน (บาท)</option><option>ของขวัญ Welcome Gift</option><option>ของแถม</option><option>บริการเพิ่มเติมฟรี</option><option>อื่นๆ</option></select></div>
-                                <div class="md:col-span-2"><label for="privilege-details" class="form-label">รายละเอียดสิทธิประโยชน์ <span class="text-red-500">*</span></label><textarea id="privilege-details" rows="3" class="form-input" required placeholder="เช่น 'ส่วนลด 10% สำหรับค่าอาหารเท่านั้น'"></textarea></div>
-                                <div class="md:col-span-2"><label for="business-description" class="form-label">คำอธิบายธุรกิจ (ไม่เกิน 280 ตัวอักษร)</label><textarea id="business-description" rows="2" class="form-input" maxlength="280" placeholder="แนะนำธุรกิจของคุณให้ลูกค้ารู้จัก..."></textarea></div>
+                                <div><label for="privilege-details" class="form-label">รายละเอียดสิทธิประโยชน์ <span class="text-red-500">*</span></label><textarea id="privilege-details" rows="3" class="form-input" required placeholder="เช่น 'ส่วนลด 10% สำหรับค่าอาหารเท่านั้น'"></textarea></div>
+                                <div><label for="business-description" class="form-label">คำอธิบายธุรกิจ (ไม่เกิน 280 ตัวอักษร)</label><textarea id="business-description" rows="2" class="form-input" maxlength="280" placeholder="แนะนำธุรกิจของคุณให้ลูกค้ารู้จัก..."></textarea></div>
                                 <div><label for="facebook-url" class="form-label">Facebook Page URL</label><input type="url" id="facebook-url" class="form-input" placeholder="https://facebook.com/yourpage"></div>
                             </div>
                             <div class="flex justify-between mt-10">
-                                <button type="button" id="back-btn-2" class="py-2 px-8 border border-gray-300 rounded-lg bg-white hover:bg-gray-100 text-gray-700 font-semibold">ย้อนกลับ</button>
-                                <button type="button" id="next-btn-2" class="py-2 px-8 border rounded-lg text-white bg-blue-600 hover:bg-blue-700 font-semibold">ถัดไป</button>
+                                <button type="button" id="back-btn-2" class="py-3 px-8 rounded-lg bg-transparent text-gray-600 hover:bg-gray-100 font-semibold transition-all">ย้อนกลับ</button>
+                                <button type="button" id="next-btn-2" class="py-3 px-8 rounded-lg text-white bg-blue-600 hover:bg-blue-700 font-semibold shadow-md hover:shadow-lg transition-all">ถัดไป</button>
                             </div>
                         </div>
 
                         <!-- Step 3: Confirmation -->
-                        <div id="form-step-3" class="form-step hidden space-y-8">
-                            <h3 class="form-section-title">ขั้นตอนที่ 3: ยืนยันและส่งข้อมูล</h3>
+                        <div id="form-step-3" class="form-step hidden-step">
+                            <div class="mb-8 pb-4 border-b border-gray-200">
+                                <h3 class="form-section-title">ยืนยันและส่งข้อมูล</h3>
+                                <p class="text-sm text-gray-500">ขั้นตอนที่ 3 จาก 3</p>
+                            </div>
                             <div class="space-y-6 bg-gray-50 p-6 rounded-lg">
                                 <div class="relative flex items-start"><div class="flex items-center h-5"><input id="confirm-membership" name="confirmation" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"></div><div class="ml-3 text-sm"><label for="confirm-membership" class="font-medium text-gray-700">ข้าพเจ้าเข้าใจและยินดีสมัครเป็นสมาชิกสมทบ (500 บาท/ปี) <span class="text-red-500">*</span></label></div></div>
                                 <div class="relative flex items-start"><div class="flex items-center h-5"><input id="confirm-consent" name="confirmation" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"></div><div class="ml-3 text-sm"><label for="confirm-consent" class="font-medium text-gray-700">ข้าพเจ้ายินยอมให้ตรวจสอบข้อมูลและเอกสารที่ให้ไว้ <span class="text-red-500">*</span></label></div></div>
                                 <div class="relative flex items-start"><div class="flex items-center h-5"><input id="confirm-truth" name="confirmation" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"></div><div class="ml-3 text-sm"><label for="confirm-truth" class="font-medium text-gray-700">ข้าพเจ้ายินยันว่าข้อมูลทั้งหมดเป็นความจริง <span class="text-red-500">*</span></label></div></div>
                             </div>
-                            <div class="flex justify-between items-center pt-8 border-t">
-                                <button type="button" id="back-btn-3" class="py-2 px-8 border border-gray-300 rounded-lg bg-white hover:bg-gray-100 text-gray-700 font-semibold">ย้อนกลับ</button>
-                                <button type="submit" id="submit-btn" class="py-3 px-8 border border-transparent rounded-lg shadow-sm text-lg font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors disabled:bg-gray-400" disabled>ยืนยันและส่งข้อมูล</button>
+                            <div class="flex justify-between items-center pt-8 mt-8 border-t">
+                                <button type="button" id="back-btn-3" class="py-3 px-8 rounded-lg bg-transparent text-gray-600 hover:bg-gray-100 font-semibold transition-all">ย้อนกลับ</button>
+                                <button type="submit" id="submit-btn" class="py-3 px-8 rounded-lg shadow-md text-lg font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed" disabled>ยืนยันและส่งข้อมูล</button>
                             </div>
                         </div>
                     </form>
@@ -171,13 +178,11 @@
 
             const applyNowBtn = document.getElementById('apply-now-btn');
             const applicationFormSection = document.getElementById('application-form');
-            const formWrapper = document.getElementById('form-wrapper');
             const formContainer = document.getElementById('form-container');
             const thankYouMessage = document.getElementById('thank-you-message');
             const mainForm = document.getElementById('merchant-form');
             
             const steps = [document.getElementById('form-step-1'), document.getElementById('form-step-2'), document.getElementById('form-step-3')];
-            const progressSteps = [document.getElementById('progress-step-1'), document.getElementById('progress-step-2'), document.getElementById('progress-step-3')];
             
             const submitBtn = document.getElementById('submit-btn');
             const nextBtn1 = document.getElementById('next-btn-1');
@@ -188,39 +193,17 @@
 
             let currentStepIndex = 0;
 
-            function updateProgressBar(stepIndex) {
-                progressSteps.forEach((step, index) => {
-                    const circle = step.querySelector('.circle');
-                    const line = step.querySelector('.progress-line');
-                    
-                    if (index < stepIndex) {
-                        step.classList.add('active');
-                        circle.innerHTML = '&#10003;';
-                        if (line) line.classList.add('bg-blue-600');
-                    } else if (index === stepIndex) {
-                        step.classList.add('active');
-                        circle.innerHTML = index + 1;
-                        if (line) line.classList.remove('bg-blue-600');
-                    } else {
-                        step.classList.remove('active');
-                        circle.innerHTML = index + 1;
-                        if (line) line.classList.remove('bg-blue-600');
-                    }
-                });
-            }
-
             function showStep(stepIndex) {
                 steps.forEach((step, index) => {
                     if (index === stepIndex) {
-                        step.classList.remove('hidden');
-                        setTimeout(() => step.style.opacity = 1, 50);
+                        step.classList.remove('hidden-step');
+                        step.classList.add('visible-step');
                     } else {
-                        step.style.opacity = 0;
-                        setTimeout(() => step.classList.add('hidden'), 500);
+                        step.classList.add('hidden-step');
+                        step.classList.remove('visible-step');
                     }
                 });
                 currentStepIndex = stepIndex;
-                updateProgressBar(currentStepIndex);
             }
             
             function validateStep(stepIndex) {
@@ -253,17 +236,10 @@
                 });
             });
 
-            const readFileAsBase64 = (file) => new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = (error) => reject(error);
-                reader.readAsDataURL(file);
-            });
-
             mainForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 submitBtn.disabled = true;
-                submitBtn.textContent = 'กำลังส่งข้อมูล...';
+                submitBtn.innerHTML = '<span class="animate-spin h-5 w-5 border-2 border-white rounded-full border-t-transparent"></span><span class="ml-3">กำลังส่งข้อมูล...</span>';
 
                 try {
                     const formData = {
@@ -294,18 +270,18 @@
                     const result = await response.json();
                     if (result.result !== 'success') throw new Error(result.error || 'Unknown error');
 
-                    formWrapper.style.transition = 'opacity 0.5s ease-out';
-                    formWrapper.style.opacity = 0;
+                    formContainer.style.opacity = 0;
                     setTimeout(() => {
-                        formWrapper.innerHTML = document.getElementById('thank-you-message').innerHTML;
-                        formWrapper.querySelector('.hidden').classList.remove('hidden');
-                        formWrapper.style.opacity = 1;
+                        formContainer.classList.add('hidden');
+                        thankYouMessage.classList.remove('hidden');
+                        thankYouMessage.style.opacity = 0;
+                        setTimeout(() => thankYouMessage.style.opacity = 1, 50);
                     }, 500);
 
                 } catch (error) {
                     alert('เกิดข้อผิดพลาดในการส่งข้อมูล: ' + error.message);
                     submitBtn.disabled = false;
-                    submitBtn.textContent = 'ยืนยันและส่งข้อมูล';
+                    submitBtn.innerHTML = 'ยืนยันและส่งข้อมูล';
                 }
             });
             showStep(0); // Initialize first step
