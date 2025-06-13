@@ -11,8 +11,13 @@
     <style>
         body { font-family: 'Kanit', sans-serif; background-color: #f7fafc; }
         .form-label { @apply block text-sm font-medium text-gray-700 mb-1; }
-        .form-input { 
-            @apply block w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent sm:text-sm transition-all; 
+        .form-input {
+            @apply block w-full px-4 py-3 bg-white rounded-lg shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm transition-all;
+            border: 1px solid #d1d5db; /* Explicit gray-300 border, this is the definitive fix */
+        }
+        .form-input:focus {
+             border-color: #3b82f6; /* blue-500 */
+             @apply ring-2 ring-offset-2 ring-blue-500;
         }
         .form-input.invalid { 
             border-color: #ef4444; /* red-500 */
@@ -20,7 +25,7 @@
         }
         .form-section-title { @apply text-2xl font-semibold text-gray-900 pb-3 mb-6 border-b border-gray-200; }
         .cta-button { 
-            @apply w-full inline-flex items-center justify-center px-8 py-4 border border-transparent rounded-full shadow-lg text-xl font-bold text-white transition-all duration-300 ease-in-out;
+            @apply w-full inline-flex items-center justify-center px-8 py-4 border border-transparent rounded-xl shadow-lg text-xl font-bold text-white transition-all duration-300 ease-in-out;
             background-image: linear-gradient(to right, #10B981 0%, #34D399 51%, #10B981 100%);
             background-size: 200% auto;
         }
@@ -32,13 +37,12 @@
         .form-step {
             transition: opacity 0.5s ease-in-out;
         }
-        .progress-bar { @apply flex items-center justify-center mb-8; }
-        .progress-step { @apply flex items-center text-gray-500 transition-colors duration-300; }
+        .progress-bar { @apply flex items-center justify-center mb-12; }
+        .progress-step { @apply flex items-center text-gray-500 transition-colors duration-500; }
         .progress-step.active { @apply text-blue-600; }
-        .progress-step .circle { @apply w-8 h-8 rounded-full border-2 flex items-center justify-center font-bold; }
+        .progress-step .circle { @apply w-8 h-8 rounded-full border-2 border-gray-300 text-gray-500 flex items-center justify-center font-bold transition-all duration-500; }
         .progress-step.active .circle { @apply bg-blue-600 text-white border-blue-600; }
-        .progress-line { @apply w-16 sm:w-24 h-0.5 bg-gray-300; }
-        .progress-step.active .line-to { @apply bg-blue-600; }
+        .progress-line { @apply w-16 sm:w-24 h-0.5 bg-gray-300 transition-all duration-500; }
     </style>
 </head>
 <body class="bg-gray-100">
@@ -57,7 +61,7 @@
         </div>
         <div class="mt-12 grid gap-10 md:grid-cols-2 lg:grid-cols-3">
              <div class="flex items-start">
-                <div class="flex-shrink-0"><div class="flex items-center justify-center h-12 w-12 rounded-lg bg-blue-600 text-white"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg></div></div>
+                <div class="flex-shrink-0"><div class="flex items-center justify-center h-12 w-12 rounded-lg bg-blue-600 text-white"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283-.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg></div></div>
                 <div class="ml-4"><h3 class="text-lg leading-6 font-medium text-gray-900">เข้าถึงลูกค้ากลุ่มใหม่</h3><p class="mt-2 text-base text-gray-600">ประชาสัมพันธ์ธุรกิจของคุณไปยังสมาชิกสมาพันธ์ฯ ที่มีศักยภาพกว่า 30,000 รายทั่วประเทศ</p></div>
             </div>
             <div class="flex items-start">
@@ -80,7 +84,7 @@
             <div class="max-w-lg mx-auto">
                 <button id="apply-now-btn" class="cta-button">
                     <span>สมัครเป็นร้านค้าพันธมิตรเลย!</span>
-                    <svg class="w-6 h-6 ml-3 transform -rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7"></path></svg>
+                    <svg class="w-6 h-6 ml-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                 </button>
             </div>
         </div>
@@ -98,8 +102,8 @@
 
                     <!-- Progress Bar -->
                     <div class="progress-bar">
-                        <div id="progress-step-1" class="progress-step active"><div class="circle">1</div><div id="progress-line-1" class="progress-line line-to"></div></div>
-                        <div id="progress-step-2" class="progress-step"><div class="circle">2</div><div id="progress-line-2" class="progress-line"></div></div>
+                        <div id="progress-step-1" class="progress-step"><div class="circle">1</div><div class="progress-line"></div></div>
+                        <div id="progress-step-2" class="progress-step"><div class="circle">2</div><div class="progress-line"></div></div>
                         <div id="progress-step-3" class="progress-step"><div class="circle">3</div></div>
                     </div>
                     
@@ -174,7 +178,6 @@
             
             const steps = [document.getElementById('form-step-1'), document.getElementById('form-step-2'), document.getElementById('form-step-3')];
             const progressSteps = [document.getElementById('progress-step-1'), document.getElementById('progress-step-2'), document.getElementById('progress-step-3')];
-            const progressLines = [document.getElementById('progress-line-1'), document.getElementById('progress-line-2')];
             
             const submitBtn = document.getElementById('submit-btn');
             const nextBtn1 = document.getElementById('next-btn-1');
@@ -187,12 +190,22 @@
 
             function updateProgressBar(stepIndex) {
                 progressSteps.forEach((step, index) => {
-                    if (index <= stepIndex) step.classList.add('active');
-                    else step.classList.remove('active');
-                });
-                progressLines.forEach((line, index) => {
-                    if (index < stepIndex) line.classList.add('bg-blue-600');
-                    else line.classList.remove('bg-blue-600');
+                    const circle = step.querySelector('.circle');
+                    const line = step.querySelector('.progress-line');
+                    
+                    if (index < stepIndex) {
+                        step.classList.add('active');
+                        circle.innerHTML = '&#10003;';
+                        if (line) line.classList.add('bg-blue-600');
+                    } else if (index === stepIndex) {
+                        step.classList.add('active');
+                        circle.innerHTML = index + 1;
+                        if (line) line.classList.remove('bg-blue-600');
+                    } else {
+                        step.classList.remove('active');
+                        circle.innerHTML = index + 1;
+                        if (line) line.classList.remove('bg-blue-600');
+                    }
                 });
             }
 
@@ -281,12 +294,12 @@
                     const result = await response.json();
                     if (result.result !== 'success') throw new Error(result.error || 'Unknown error');
 
-                    formContainer.style.opacity = 0;
+                    formWrapper.style.transition = 'opacity 0.5s ease-out';
+                    formWrapper.style.opacity = 0;
                     setTimeout(() => {
-                        formContainer.classList.add('hidden');
-                        thankYouMessage.classList.remove('hidden');
-                        thankYouMessage.style.opacity = 0;
-                        setTimeout(() => thankYouMessage.style.opacity = 1, 50);
+                        formWrapper.innerHTML = document.getElementById('thank-you-message').innerHTML;
+                        formWrapper.querySelector('.hidden').classList.remove('hidden');
+                        formWrapper.style.opacity = 1;
                     }, 500);
 
                 } catch (error) {
@@ -295,6 +308,7 @@
                     submitBtn.textContent = 'ยืนยันและส่งข้อมูล';
                 }
             });
+            showStep(0); // Initialize first step
         });
     </script>
 </body>
