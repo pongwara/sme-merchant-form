@@ -11,7 +11,9 @@
     <style>
         body { font-family: 'Kanit', sans-serif; }
         .form-label { @apply block text-sm font-medium text-gray-700 mb-1; }
-        .form-input { @apply block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm; }
+        .form-input { @apply block w-full px-3 py-2 bg-white border border-gray-400 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm; }
+        .form-input.invalid { @apply border-red-500 ring-1 ring-red-500; }
+        .validation-message { @apply text-red-600 text-sm mt-1; }
         .form-section-title { @apply text-xl font-semibold text-gray-800 border-b pb-2 mb-6; }
         .cta-button { @apply w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors disabled:bg-gray-400; }
     </style>
@@ -109,23 +111,27 @@
             <div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg">
 
                 <div id="form-container">
-                    <div class="text-center mb-8">
+                    <div class="text-center mb-4">
                         <h2 class="text-3xl font-bold text-gray-900">ฟอร์มรับสมัครร้านค้าพันธมิตร</h2>
                         <p class="text-lg text-gray-500 mt-2">ขั้นตอนที่ <span id="step-indicator">1</span> จาก 3</p>
+                    </div>
+                    
+                    <div id="validation-error-msg" class="hidden text-center bg-red-100 text-red-700 p-3 rounded-md mb-6 text-sm">
+                        กรุณากรอกข้อมูลในช่องที่มีเครื่องหมาย * ให้ครบถ้วน
                     </div>
 
                     <form id="merchant-form">
                         <!-- Step 1: Business Information -->
                         <div id="form-step-1" class="space-y-6">
                             <h3 class="form-section-title">ขั้นตอนที่ 1: ข้อมูลธุรกิจ</h3>
-                            <div><label for="trade-name" class="form-label">ชื่อสถานประกอบการ:</label><input type="text" id="trade-name" class="form-input" required></div>
-                            <div><label for="registered-name" class="form-label">ชื่อจดทะเบียน:</label><input type="text" id="registered-name" class="form-input" required></div>
-                            <div><label for="business-type" class="form-label">ประเภทธุรกิจ:</label><select id="business-type" class="form-input"><option>บุคคลธรรมดา</option><option>ห้างหุ้นส่วนจำกัด</option><option>บริษัทจำกัด</option><option>วิสาหกิจชุมชน</option><option>อื่นๆ</option></select></div>
-                            <div><label for="owner-name" class="form-label">ชื่อ-นามสกุล เจ้าของ/กรรมการ:</label><input type="text" id="owner-name" class="form-input" required></div>
-                            <div><label for="owner-id" class="form-label">เลขบัตรประชาชน:</label><input type="text" id="owner-id" class="form-input" required></div>
-                            <div><label for="bank-name" class="form-label">ชื่อธนาคาร:</label><input type="text" id="bank-name" class="form-input" required></div>
-                            <div><label for="account-name" class="form-label">ชื่อบัญชี:</label><input type="text" id="account-name" class="form-input" required></div>
-                            <div><label for="account-number" class="form-label">เลขที่บัญชี:</label><input type="text" id="account-number" class="form-input" required></div>
+                            <div><label for="trade-name" class="form-label">ชื่อสถานประกอบการ: <span class="text-red-500">*</span></label><input type="text" id="trade-name" class="form-input" required></div>
+                            <div><label for="registered-name" class="form-label">ชื่อจดทะเบียน: <span class="text-red-500">*</span></label><input type="text" id="registered-name" class="form-input" required></div>
+                            <div><label for="business-type" class="form-label">ประเภทธุรกิจ: <span class="text-red-500">*</span></label><select id="business-type" class="form-input" required><option>บุคคลธรรมดา</option><option>ห้างหุ้นส่วนจำกัด</option><option>บริษัทจำกัด</option><option>วิสาหกิจชุมชน</option><option>อื่นๆ</option></select></div>
+                            <div><label for="owner-name" class="form-label">ชื่อ-นามสกุล เจ้าของ/กรรมการ: <span class="text-red-500">*</span></label><input type="text" id="owner-name" class="form-input" required></div>
+                            <div><label for="owner-id" class="form-label">เลขบัตรประชาชน: <span class="text-red-500">*</span></label><input type="text" id="owner-id" class="form-input" required></div>
+                            <div><label for="bank-name" class="form-label">ชื่อธนาคาร: <span class="text-red-500">*</span></label><input type="text" id="bank-name" class="form-input" required></div>
+                            <div><label for="account-name" class="form-label">ชื่อบัญชี: <span class="text-red-500">*</span></label><input type="text" id="account-name" class="form-input" required></div>
+                            <div><label for="account-number" class="form-label">เลขที่บัญชี: <span class="text-red-500">*</span></label><input type="text" id="account-number" class="form-input" required></div>
                             <div>
                                <label class="form-label">เอกสารประกอบ (นิติบุคคล):</label>
                                <input type="file" id="doc-company" class="form-input text-sm">
@@ -140,8 +146,8 @@
                         <!-- Step 2: Privilege Information -->
                         <div id="form-step-2" class="hidden space-y-6">
                             <h3 class="form-section-title">ขั้นตอนที่ 2: สิทธิประโยชน์และข้อมูลประชาสัมพันธ์</h3>
-                            <div><label for="privilege-type" class="form-label">ประเภทสิทธิประโยชน์:</label><select id="privilege-type" class="form-input"><option>ส่วนลดเป็นเปอร์เซ็นต์ (%)</option><option>ส่วนลดเป็นจำนวนเงิน (บาท)</option><option>อื่นๆ</option></select></div>
-                            <div><label for="privilege-details" class="form-label">รายละเอียดสิทธิประโยชน์:</label><textarea id="privilege-details" rows="3" class="form-input" required></textarea></div>
+                            <div><label for="privilege-type" class="form-label">ประเภทสิทธิประโยชน์: <span class="text-red-500">*</span></label><select id="privilege-type" class="form-input" required><option>ส่วนลดเป็นเปอร์เซ็นต์ (%)</option><option>ส่วนลดเป็นจำนวนเงิน (บาท)</option><option>อื่นๆ</option></select></div>
+                            <div><label for="privilege-details" class="form-label">รายละเอียดสิทธิประโยชน์: <span class="text-red-500">*</span></label><textarea id="privilege-details" rows="3" class="form-input" required></textarea></div>
                             <div><label for="business-description" class="form-label">คำอธิบายธุรกิจ (ไม่เกิน 280 ตัวอักษร):</label><textarea id="business-description" rows="2" class="form-input" maxlength="280"></textarea></div>
                             <div><label for="logo-upload" class="form-label">อัปโหลดโลโก้:</label><input type="file" id="logo-upload" class="form-input text-sm" accept="image/*"></div>
                             <div><label for="images-upload" class="form-label">อัปโหลดภาพร้านค้า/สินค้า (สูงสุด 5 ภาพ):</label><input type="file" id="images-upload" multiple class="form-input text-sm" accept="image/*"></div>
@@ -156,13 +162,13 @@
                         <div id="form-step-3" class="hidden space-y-6">
                             <h3 class="form-section-title">ขั้นตอนที่ 3: ยืนยันข้อมูล</h3>
                             <div class="space-y-5">
-                                <div class="relative flex items-start"><div class="flex items-center h-5"><input id="confirm-membership" type="checkbox" required class="h-4 w-4 text-blue-600 border-gray-300 rounded"></div><div class="ml-3 text-sm"><label for="confirm-membership" class="font-medium text-gray-700">ยินดีสมัครสมาชิกสมทบ (500 บาท/ปี)</label></div></div>
-                                <div class="relative flex items-start"><div class="flex items-center h-5"><input id="confirm-consent" type="checkbox" required class="h-4 w-4 text-blue-600 border-gray-300 rounded"></div><div class="ml-3 text-sm"><label for="confirm-consent" class="font-medium text-gray-700">ยินยอมให้ตรวจสอบข้อมูล</label></div></div>
-                                <div class="relative flex items-start"><div class="flex items-center h-5"><input id="confirm-truth" type="checkbox" required class="h-4 w-4 text-blue-600 border-gray-300 rounded"></div><div class="ml-3 text-sm"><label for="confirm-truth" class="font-medium text-gray-700">ยืนยันว่าข้อมูลเป็นความจริง</label></div></div>
+                                <div class="relative flex items-start"><div class="flex items-center h-5"><input id="confirm-membership" name="confirmation" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded"></div><div class="ml-3 text-sm"><label for="confirm-membership" class="font-medium text-gray-700">ยินดีสมัครสมาชิกสมทบ (500 บาท/ปี) <span class="text-red-500">*</span></label></div></div>
+                                <div class="relative flex items-start"><div class="flex items-center h-5"><input id="confirm-consent" name="confirmation" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded"></div><div class="ml-3 text-sm"><label for="confirm-consent" class="font-medium text-gray-700">ยินยอมให้ตรวจสอบข้อมูล <span class="text-red-500">*</span></label></div></div>
+                                <div class="relative flex items-start"><div class="flex items-center h-5"><input id="confirm-truth" name="confirmation" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded"></div><div class="ml-3 text-sm"><label for="confirm-truth" class="font-medium text-gray-700">ยืนยันว่าข้อมูลเป็นความจริง <span class="text-red-500">*</span></label></div></div>
                             </div>
                             <div class="flex justify-between items-center pt-6 border-t">
                                 <button type="button" id="back-btn-3" class="py-2 px-6 border rounded-md bg-white hover:bg-gray-50">&lt; ย้อนกลับ</button>
-                                <button type="submit" id="submit-btn" class="cta-button text-base py-2 px-6 w-auto">ยืนยันและส่งข้อมูล</button>
+                                <button type="submit" id="submit-btn" class="cta-button text-base py-2 px-6 w-auto" disabled>ยืนยันและส่งข้อมูล</button>
                             </div>
                         </div>
                     </form>
@@ -179,19 +185,20 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- IMPORTANT: Paste your Google Apps Script URL here ---
             const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwmF9Co0AHHwgRoWGypZoDdHEG2qurDsLg1bl4t1jt8bt0O7CDV_YOxtpWuvL-e4vhN/exec";
 
-            // Form navigation elements
             const applyNowBtn = document.getElementById('apply-now-btn');
             const applicationForm = document.getElementById('application-form');
             const formContainer = document.getElementById('form-container');
             const thankYouMessage = document.getElementById('thank-you-message');
             const mainForm = document.getElementById('merchant-form');
+            const validationErrorMsg = document.getElementById('validation-error-msg');
 
-            const step1 = document.getElementById('form-step-1');
-            const step2 = document.getElementById('form-step-2');
-            const step3 = document.getElementById('form-step-3');
+            const steps = [
+                document.getElementById('form-step-1'),
+                document.getElementById('form-step-2'),
+                document.getElementById('form-step-3')
+            ];
             const stepIndicator = document.getElementById('step-indicator');
             const submitBtn = document.getElementById('submit-btn');
 
@@ -199,28 +206,62 @@
             const nextBtn2 = document.getElementById('next-btn-2');
             const backBtn2 = document.getElementById('back-btn-2');
             const backBtn3 = document.getElementById('back-btn-3');
+            
+            const confirmationCheckboxes = document.querySelectorAll('input[name="confirmation"]');
 
-            let currentStep = 1;
-
-            function showStep(stepNumber) {
-                step1.classList.add('hidden');
-                step2.classList.add('hidden');
-                step3.classList.add('hidden');
-                document.getElementById(`form-step-${stepNumber}`).classList.remove('hidden');
-                stepIndicator.textContent = stepNumber;
+            function showStep(stepIndex) {
+                validationErrorMsg.classList.add('hidden');
+                steps.forEach((step, index) => {
+                    step.classList.toggle('hidden', index !== stepIndex);
+                });
+                stepIndicator.textContent = stepIndex + 1;
             }
             
+            function validateStep(stepIndex) {
+                let isValid = true;
+                validationErrorMsg.classList.add('hidden');
+                const currentStepDiv = steps[stepIndex];
+                const requiredInputs = currentStepDiv.querySelectorAll('[required]');
+
+                requiredInputs.forEach(input => {
+                    input.classList.remove('invalid');
+                    if (!input.value.trim()) {
+                        isValid = false;
+                        input.classList.add('invalid');
+                    }
+                });
+                
+                if (!isValid) {
+                    validationErrorMsg.classList.remove('hidden');
+                }
+                return isValid;
+            }
+            
+            function checkConfirmations() {
+                const allChecked = Array.from(confirmationCheckboxes).every(cb => cb.checked);
+                submitBtn.disabled = !allChecked;
+            }
+
             applyNowBtn.addEventListener('click', () => {
                 applicationForm.classList.remove('hidden');
                 applicationForm.scrollIntoView({ behavior: 'smooth' });
             });
 
-            nextBtn1.addEventListener('click', () => showStep(2));
-            nextBtn2.addEventListener('click', () => showStep(3));
-            backBtn2.addEventListener('click', () => showStep(1));
-            backBtn3.addEventListener('click', () => showStep(2));
+            nextBtn1.addEventListener('click', () => { if (validateStep(0)) showStep(1); });
+            nextBtn2.addEventListener('click', () => { if (validateStep(1)) showStep(2); });
+            backBtn2.addEventListener('click', () => showStep(0));
+            backBtn3.addEventListener('click', () => showStep(1));
 
-            // File to Base64 converter
+            confirmationCheckboxes.forEach(cb => cb.addEventListener('change', checkConfirmations));
+            
+            document.querySelectorAll('.form-input[required]').forEach(input => {
+                input.addEventListener('input', () => {
+                    if(input.value.trim() !== "") {
+                        input.classList.remove('invalid');
+                    }
+                });
+            });
+
             const readFileAsBase64 = (file) => {
                 return new Promise((resolve, reject) => {
                     const reader = new FileReader();
@@ -230,7 +271,6 @@
                 });
             };
 
-            // Handle form submission
             mainForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 submitBtn.disabled = true;
@@ -242,29 +282,14 @@
                     const logoFile = document.getElementById('logo-upload').files[0];
                     const productImagesFiles = document.getElementById('images-upload').files;
 
-                    let legalDocsPayload = null;
-                    if(legalDocsFile) {
-                        const data = await readFileAsBase64(legalDocsFile);
-                        legalDocsPayload = { name: legalDocsFile.name, data };
-                    }
-                    
-                    let individualDocsPayload = null;
-                    if(individualDocsFile) {
-                        const data = await readFileAsBase64(individualDocsFile);
-                        individualDocsPayload = { name: individualDocsFile.name, data };
-                    }
-
-                    let logoPayload = null;
-                    if (logoFile) {
-                        const data = await readFileAsBase64(logoFile);
-                        logoPayload = { name: logoFile.name, data };
-                    }
+                    let legalDocsPayload = legalDocsFile ? { name: legalDocsFile.name, data: await readFileAsBase64(legalDocsFile) } : null;
+                    let individualDocsPayload = individualDocsFile ? { name: individualDocsFile.name, data: await readFileAsBase64(individualDocsFile) } : null;
+                    let logoPayload = logoFile ? { name: logoFile.name, data: await readFileAsBase64(logoFile) } : null;
                     
                     let productImagesPayload = [];
                     if (productImagesFiles.length > 0) {
                          for (const file of productImagesFiles) {
-                            const data = await readFileAsBase64(file);
-                            productImagesPayload.push({ name: file.name, data });
+                            productImagesPayload.push({ name: file.name, data: await readFileAsBase64(file) });
                         }
                     }
 
@@ -295,6 +320,8 @@
                         mode: 'cors',
                         body: JSON.stringify(formData)
                     });
+
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
                     const result = await response.json();
 
